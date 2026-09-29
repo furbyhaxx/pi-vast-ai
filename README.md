@@ -1,4 +1,4 @@
-# pi-vastai
+# pi-vast-ai
 
 Rent GPUs, launch instances, run jobs and manage your Vast.ai workflow from [pi](https://pi.dev) through natural language.
 
@@ -7,14 +7,14 @@ A pi package fork of [LiorZ/vastai-claude-skill](https://github.com/LiorZ/vastai
 ## Install
 
 ```bash
-pi install git:github.com/furbyhaxx/vastai-claude-skill
+pi install git:github.com/furbyhaxx/pi-vast-ai
 ```
 
 For local development, load the checkout for one run or install it by path:
 
 ```bash
-pi -e /path/to/vastai-claude-skill
-pi install /path/to/vastai-claude-skill
+pi -e /path/to/pi-vast-ai
+pi install /path/to/pi-vast-ai
 ```
 
 In pi, skills are invoked as `/skill:<name> <request>`, for example `/skill:run-job train.py on one RTX 4090`. The `/name` forms below are the Claude Code spelling. The skills still load as a Claude Code plugin through `.claude-plugin/` (see upstream for those install steps), but the guard only exists in pi.
