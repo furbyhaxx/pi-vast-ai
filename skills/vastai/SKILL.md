@@ -6,7 +6,7 @@ allowed-tools: Bash
 
 # Vast.ai CLI Complete Reference
 
-The `vastai` CLI (v0.5.0) interfaces with the Vast.ai GPU rental marketplace. All commands below are real and available.
+The `vastai` CLI (verified against v1.8.2) interfaces with the Vast.ai GPU rental marketplace. All commands below are real and available.
 
 ## Spending guard (pi)
 
