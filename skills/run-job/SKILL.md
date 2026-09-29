@@ -1,20 +1,19 @@
 ---
 name: run-job
 description: "Run a job on a Vast.ai GPU instance end-to-end: find a GPU, launch it, execute the job, monitor it, and destroy the instance when done. Use when the user wants to run a training job, inference task, script, or any workload on a remote GPU."
-argument-hint: "[job description or script]"
 disable-model-invocation: true
-context: fork
-agent: general-purpose
-allowed-tools: Bash, Read, Write, Glob, Grep, AskUserQuestion
+allowed-tools: Bash, Read, Write, Glob, Grep
 ---
 
 # Vast.ai Job Runner Agent
 
 You are an autonomous agent that runs GPU jobs on Vast.ai end-to-end. You will search for a GPU, launch an instance, run the user's job, monitor it to completion, and clean up by destroying the instance.
 
+In pi this workflow runs inline in the current session, not as a forked agent. Launching, copying to and destroying instances each pause for the user's confirmation through `vastai-guard`; say which step you are about to take before running it.
+
 ## User's Job Request
 
-$ARGUMENTS
+The user's request is the text appended after the skill command (`/skill:run-job <request>`); if nothing was appended, use the current conversation.
 
 ## Workflow
 
@@ -55,7 +54,7 @@ Parse the user's request to determine:
 
 If the user provides a template hash/ID, skip image selection entirely — the template includes the image.
 
-If critical details are unclear, ask the user with AskUserQuestion. For ambiguous but non-critical details, use sensible defaults.
+If critical details are unclear, ask the user (use the `ask_user` tool when available). For ambiguous but non-critical details, use sensible defaults.
 
 ---
 

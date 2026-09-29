@@ -1,13 +1,16 @@
 ---
 name: vastai
 description: "Vast.ai GPU marketplace reference. Auto-invoked when the user discusses renting GPUs, launching GPU instances, searching for machines, vast.ai pricing, managing cloud GPU workloads, volumes, templates, autoscaling, SSH keys, or any vast.ai topic."
-user-invocable: false
 allowed-tools: Bash
 ---
 
 # Vast.ai CLI Complete Reference
 
 The `vastai` CLI (v0.5.0) interfaces with the Vast.ai GPU rental marketplace. All commands below are real and available.
+
+## Spending guard (pi)
+
+The package's `vastai-guard` extension lets read-only commands (`show`, `search`, `get`, `logs`, `ssh-url`, `scp-url`, `help`, `tfa status`) run directly. Every other `vastai` command can spend credit or destroy resources and pauses for user confirmation; without an interactive UI (print/JSON mode, headless subagents) it is blocked. When a command is blocked, report it to the user; never retry it or work around the guard via the Python SDK, `curl` to the REST API, or other wrappers.
 
 ## Authentication
 

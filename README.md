@@ -1,31 +1,33 @@
-# Vast.ai Plugin for Claude Code
+# pi-vastai
 
-A Claude Code plugin that lets you rent GPUs, launch instances, run jobs, and manage your entire Vast.ai workflow through natural language.
+Rent GPUs, launch instances, run jobs and manage your Vast.ai workflow from [pi](https://pi.dev) through natural language.
 
-The headline feature is `/run-job` — an autonomous agent that searches for a GPU, launches it, uploads your files, runs your job, downloads results, and destroys the instance when done. You describe the job; it handles the rest.
+A pi package fork of [LiorZ/vastai-claude-skill](https://github.com/LiorZ/vastai-claude-skill). It adds `vastai-guard`, an extension that stands in for Claude Code's per-command permission prompt: read-only `vastai` commands run directly, anything that can spend credit or destroy resources waits for your confirmation, and is blocked outright when no interactive UI exists (print/JSON mode, headless subagents).
 
 ## Install
 
-Add the marketplace and install the plugin:
-
-```
-/plugin marketplace add LiorZ/vastai-claude-skill
-/plugin install vastai@vastai-skills
+```bash
+pi install git:github.com/furbyhaxx/vastai-claude-skill
 ```
 
-To install at a specific scope:
-
-```
-/plugin install vastai@vastai-skills --scope user      # personal (default)
-/plugin install vastai@vastai-skills --scope project   # shared with team (committed to repo)
-/plugin install vastai@vastai-skills --scope local     # project-local, gitignored
-```
-
-For local development:
+For local development, load the checkout for one run or install it by path:
 
 ```bash
-claude --plugin-dir /path/to/vastai-claude-skill
+pi -e /path/to/vastai-claude-skill
+pi install /path/to/vastai-claude-skill
 ```
+
+In pi, skills are invoked as `/skill:<name> <request>`, for example `/skill:run-job train.py on one RTX 4090`. The `/name` forms below are the Claude Code spelling. The skills still load as a Claude Code plugin through `.claude-plugin/` (see upstream for those install steps), but the guard only exists in pi.
+
+### Confirmation dialog
+
+| Choice | Effect |
+|---|---|
+| Allow once | Runs this command |
+| Allow these actions for the rest of this session | Stops asking for the same verb and object (for example `create instance`) until the session restarts |
+| Block | Rejects the call; the model is told not to retry or work around it |
+
+The guard classifies with an allow-list, so unknown or new `vastai` verbs require confirmation. It only inspects `vastai` CLI calls made through the `bash` tool; the Python SDK and raw REST calls are not covered, and the skills instruct the model not to use them to bypass it.
 
 ### Prerequisites
 
@@ -126,7 +128,7 @@ Verify CLI installation, configure API key, register SSH keys, and test connecti
 
 ### Background Reference
 
-The `vastai` skill (not user-invocable) is automatically loaded when you discuss Vast.ai topics. It provides Claude with comprehensive knowledge of all 124+ CLI commands — instances, volumes, templates, clusters, overlays, teams, billing, hosting, SSH keys, API keys, environment variables, and more.
+The `vastai` skill (not user-invocable) is automatically loaded when you discuss Vast.ai topics. It provides the model with comprehensive knowledge of all 124+ CLI commands — instances, volumes, templates, clusters, overlays, teams, billing, hosting, SSH keys, API keys, environment variables, and more.
 
 ## How It Works
 
@@ -138,7 +140,7 @@ The `vastai` skill (not user-invocable) is automatically loaded when you discuss
 | `manage-instances` | `/manage-instances` | Yes | No |
 | `manage-volumes` | `/manage-volumes` | Yes | No |
 | `autoscale` | `/autoscale` | Yes | No |
-| `run-job` | `/run-job` | No (side effects) | Yes (forked agent) |
+| `run-job` | `/run-job` | No (side effects) | Claude: forked agent; pi: inline |
 | `vastai-setup` | `/vastai-setup` | No | No |
 
 Skills with side effects (creating instances, spending money) require explicit `/command` invocation — they won't trigger automatically.

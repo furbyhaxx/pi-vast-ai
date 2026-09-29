@@ -1,7 +1,6 @@
 ---
 name: manage-volumes
 description: "Manage Vast.ai persistent storage volumes — search, create, delete, clone, and attach volumes to instances. Use for persistent data across instance lifecycles."
-argument-hint: "[action or volume-id]"
 allowed-tools: Bash
 ---
 
@@ -11,7 +10,7 @@ Help the user manage persistent storage volumes on Vast.ai.
 
 ## User Request
 
-$ARGUMENTS
+The user's request is the text appended after the skill command (`/skill:manage-volumes <request>`); if nothing was appended, use the current conversation.
 
 ## Available Actions
 

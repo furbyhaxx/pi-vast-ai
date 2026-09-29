@@ -1,7 +1,6 @@
 ---
 name: manage-instances
 description: "Manage Vast.ai GPU instances — show status, start, stop, destroy, SSH, execute commands, view logs, copy files, take snapshots. Use when the user wants to check on, connect to, transfer files, or control their GPU instances."
-argument-hint: "[action or instance-id]"
 allowed-tools: Bash
 ---
 
@@ -11,7 +10,7 @@ Help the user manage their GPU instances on Vast.ai.
 
 ## User Request
 
-$ARGUMENTS
+The user's request is the text appended after the skill command (`/skill:manage-instances <request>`); if nothing was appended, use the current conversation.
 
 ## Available Actions
 

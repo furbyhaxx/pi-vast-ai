@@ -1,7 +1,6 @@
 ---
 name: search-gpus
 description: "Search for available GPU machines on Vast.ai. Use when looking for GPUs to rent, comparing GPU pricing, or finding machines that match specific requirements."
-argument-hint: "[gpu-type or requirements]"
 allowed-tools: Bash
 ---
 
@@ -11,7 +10,7 @@ Help the user find the best GPU offers on Vast.ai.
 
 ## User Request
 
-$ARGUMENTS
+The user's request is the text appended after the skill command (`/skill:search-gpus <request>`); if nothing was appended, use the current conversation.
 
 ## Instructions
 

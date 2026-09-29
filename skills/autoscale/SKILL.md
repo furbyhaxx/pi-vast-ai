@@ -1,7 +1,6 @@
 ---
 name: autoscale
 description: "Manage Vast.ai autoscaling endpoints and worker groups for production deployments. Use when setting up auto-scaling GPU inference, managing worker pools, or deploying services."
-argument-hint: "[action]"
 allowed-tools: Bash
 ---
 
@@ -11,7 +10,7 @@ Manage production deployments with auto-scaling worker pools.
 
 ## User Request
 
-$ARGUMENTS
+The user's request is the text appended after the skill command (`/skill:autoscale <request>`); if nothing was appended, use the current conversation.
 
 ## Concepts
 

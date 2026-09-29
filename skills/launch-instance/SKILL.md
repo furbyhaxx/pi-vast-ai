@@ -1,7 +1,6 @@
 ---
 name: launch-instance
 description: "Launch a GPU instance on Vast.ai. Use when the user wants to create, start, or spin up a new GPU machine for training, inference, or development."
-argument-hint: "[offer-id or requirements]"
 disable-model-invocation: true
 allowed-tools: Bash
 ---
@@ -12,7 +11,7 @@ Guide the user through launching a GPU instance on Vast.ai.
 
 ## User Request
 
-$ARGUMENTS
+The user's request is the text appended after the skill command (`/skill:launch-instance <request>`); if nothing was appended, use the current conversation.
 
 ## Instructions
 
